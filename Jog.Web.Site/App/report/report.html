@@ -1,0 +1,17 @@
+﻿<div class="container-fluid" ng-controller="reportCtrl">
+    
+    <ng-include src="'App/dateFilter.html'"></ng-include>
+
+    <div class="col-md-8">
+
+        <div class="well" ng-repeat="item in report | filter:betweenWeeks | orderBy:'-dateFrom'">
+            <h3>
+                <strong>{{ item.dateTo | date:"dd MMMM yyyy" }} - {{ item.dateFrom| date:"dd MMMM yyyy" }}</strong>
+            </h3>
+            <span class="lead">
+                Average Distance: {{ item.avgDistance | metersToKm}},
+                Average Speed: {{ item.avgSpeed | number:2 }} m/s
+            </span>
+        </div>
+    </div>
+</div>

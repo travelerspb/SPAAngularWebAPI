@@ -1,0 +1,74 @@
+﻿<div class="container-fluid" ng-controller="workoutsListCtrl">
+    
+    <ng-include src="'App/dateFilter.html'"></ng-include>
+    
+    <div class="col-md-6" ng-show="showError()">
+        <p>
+            Date error
+        </p>
+    </div>
+
+    <div class="col-md-8">
+        <div class="well">
+            <button ng-click="createWorkout()">Add workout data</button>
+        </div>
+        
+
+        <form ng-show="showEdit()" role="form" class="well" name="newWorkout" novalidate>
+            <h4>{{operationName}}</h4>
+            <div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
+                <label class="control-label">Date</label>
+                <input type="text" class="form-control" data-date-format="yyyy-MM-dd" ng-model="operation.date"
+                       name="date" bs-datepicker>
+            </div>
+            <div class="form-group">
+                <label>Duration (seconds)</label>
+                <input type="number" class="form-control" name="duration" ng-model="operation.duration"
+                       min="0" max="999999999" required />
+                <span class="error" ng-show="newWorkout.duration.$error.required">
+                        Please enter a duration
+                </span>
+                <span class="error" ng-show="newWorkout.duration.$error.number">
+                        Please enter a number
+                </span>
+            </div>
+            <div class="form-group">
+                <label>Distance (meters)</label>
+                <input type="number" class="form-control" name="distance" ng-model="operation.distance"
+                       min="0" max="999999999" required />
+                <span class="error" ng-show="newWorkout.distance.$error.error">
+                        Please enter a distance
+                </span>
+                <span class="error" ng-show="newWorkout.distance.$error.number">
+                        Please enter a number
+                </span>
+            </div>
+            <button ng-click="applyWorkout()" ng-disabled="!newWorkout.$valid"
+                    class="btn btn-info pull-right">
+                {{ getButtonName() }}
+            </button>
+            <button ng-click="cancelEdit()"
+                    class="btn btn-info pull-right">
+                Cancel
+            </button>
+        </form>
+
+        <div class="well" ng-repeat="item in workouts | filter:betweenDates | orderBy:'-date'">
+            <h3>
+                <strong>{{ item.date | date:"dd MMMM yyyy" }}</strong>
+            </h3>
+            <button ng-click="deleteWorkout(item)"
+                    class="btn btn-danger pull-right">
+                Delete
+            </button>
+            <button ng-click="editWorkout(item)"
+                    class="btn btn-info pull-right">
+                Edit
+            </button>
+            <span class="lead">
+                    Distance: {{ item.distance | metersToKm }},  Time: {{ item.duration | secToTime}},
+                    Speed: {{ item.distance/item.duration | number:2 }} m/s
+                </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿<div class="container-fluid" ng-controller="AccountCtrl">
+    <div ng-show="isLogin()">
+        <button ng-click="Logout()">Logout</button>
+    </div>
+
+    <div class="row" ng-show="!isLogin()">
+        <div class="col-xs-6">
+            <div class=" jumbotron">
+                <h1>Login</h1>
+                <form role="form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" ng-model="user.username" id="username"
+                               placeholder="Username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" ng-model="user.password"
+                               placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn btn-default" ng-click="Login()">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="jumbotron">
+                <form role="form" name="signup" novalidate>
+                    <h1>Signup</h1>
+                    <div class="form-group">
+                        <label for="newUsername">Username</label>
+                        <input type="text" class="form-control" id="newUsername" ng-model="newUser.email"
+                               placeholder="email" required name="email">
+                        <span class="error" ng-show="signup.email.$error.required">
+                            Please enter a name
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">Password</label>
+                        <input type="password" class="form-control" id="newPassword" ng-model="newUser.password"
+                               placeholder="Password" required name="passwd">
+                        <span class="error" ng-show="signup.passwd.$error.required">
+                            Please enter a password
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassw">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassw" ng-model="newUser.ConfirmPassword"
+                               placeholder="Password again" required name="ConfirmPassword">
+                        <span class="error" ng-show="signup.ConfirmPassword.$error.required">
+                            Please enter a password second time
+                        </span>
+                    </div>
+                    <button class="btn btn-default" ng-click="signUp()" ng-disabled="signup.$invalid">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
